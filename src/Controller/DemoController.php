@@ -21,6 +21,7 @@ final class DemoController extends AbstractController
             'Orge',
             'seigle',
             'Avoine',
+            'Mais'
         ];
         //Les analyses de céréales sont en cours...
         $analyses =  [];

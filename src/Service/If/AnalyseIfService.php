@@ -6,16 +6,33 @@ namespace App\Service\If;
 
 class AnalyseIfService
 {
+    public function __construct(
+        private readonly AnalyseBleService $analyseBleService,
+        private readonly AnalyseOrgeService $analyseOrgeService,
+        private readonly AnalyseSeigletService $analyseSeigletService,
+        private readonly AnalyseAvoineService $analyseAvoineService
+    ) {
+
+    }
+
+    /**
+     * Manager naïf qui distribue les tâches d'analyse en fonction de la céréale
+     * Utilise des conditions if/elseif pour déterminer quel service appeler
+     */
     public function analyserCereal(string $cereal): string
     {
-        if(strtolower($cereal) === 'ble') {
-            return 'Résultat de l\'analyse du blé';
-        }elseif (strtolower($cereal) === 'orge') {
-            return 'Résultat de l\'analyse de l\'orge';
-        }elseif (strtolower($cereal) === 'seigle') {
-            return 'Résultat de l\'analyse du seigle';
+        $cerealLower = strtolower($cereal);
+
+        if ($cerealLower === 'ble') {
+            return $this->analyseBleService->analyser();
+        } elseif ($cerealLower === 'orge') {
+            return $this->analyseOrgeService->analyser();
+        } elseif ($cerealLower === 'seigle') {
+            return $this->analyseSeigletService->analyser();
+        } elseif ($cerealLower === 'avoine') {
+            return $this->analyseAvoineService->analyser();
         }
 
-        throw new \Exception('Céréale non supportée.');
+        throw new \Exception('Céréale non supportée : ' . $cereal);
     }
 }
