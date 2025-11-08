@@ -5,11 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Service\If\AnalyseIfService;
+use App\Service\Pattern\AnalysePatternService;
 
 final class DemoController extends AbstractController
 {
-    public function __construct(private readonly AnalyseIfService $analyseIfService)
+    public function __construct(private readonly AnalysePatternService $analysePatternService)
     {
     }
 
@@ -28,7 +28,7 @@ final class DemoController extends AbstractController
 
         foreach ($cereals as $cereal){
             try{
-            $analyse = $this->analyseIfService->analyserCereal($cereal);
+            $analyse = $this->analysePatternService->analyserCereal($cereal);
             $analyses[] = [
                 'cereal' => $cereal,
                 'result' => $analyse,
